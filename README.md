@@ -138,7 +138,7 @@ vastusoundarya/
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/api/auth/me` | Current admin profile |
-| GET | `/api/dashboard/stats` | Dashboard statistics |
+| GET | `/api/dashboard/stats` | Dashboard analytics (counts, chart series, recent items) |
 | GET | `/api/categories?all=true` | All categories (incl. inactive) |
 | POST | `/api/categories` | Create category |
 | PUT | `/api/categories/:id` | Update category |

@@ -34,3 +34,8 @@ Thumbs.db
 # Misc
 .pnp
 .pnp.js
+
+node_modules/
+.env
+.env.*
+!.env.example
