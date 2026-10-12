@@ -16,12 +16,22 @@ connectDB();
 
 const app = express();
 
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:3000',
-    credentials: true,
-  })
-);
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://www.vastusoundarya.in',
+  'https://vastusoundarya.in',
+  'https://vastu-soundarya-nf197wj7f-madhura-patils-projects-45cede2c.vercel.app'
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error('Not allowed by CORS: ' + origin));
+  }
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
