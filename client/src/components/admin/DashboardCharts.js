@@ -16,9 +16,9 @@ const APPOINTMENT_COLORS = { Pending: '#D97706', Accepted: '#047857', Rejected: 
 const STATUS_COLORS = { Completed: '#A67524', Ongoing: '#3F5E7A', Upcoming: '#818181' };
 
 const ChartCard = ({ title, subtitle, children }) => (
-  <div className="bg-white rounded-sm border border-charcoal-100 p-5 md:p-6 h-full">
+  <div className="bg-white rounded-sm border border-charcoal-100 p-4 sm:p-5 md:p-6 h-full min-w-0 overflow-hidden">
     <div className="mb-4">
-      <h2 className="font-display text-lg text-charcoal-900">{title}</h2>
+      <h2 className="font-display text-base sm:text-lg text-charcoal-900">{title}</h2>
       {subtitle && <p className="text-charcoal-500 text-xs mt-1 uppercase tracking-wider">{subtitle}</p>}
     </div>
     {children}
@@ -47,15 +47,15 @@ const ChartTooltip = ({ active, payload }) => {
 const PieLegend = ({ data, colors }) => (
   <ul className="mt-4 space-y-2">
     {data.map((item, index) => (
-      <li key={item.name} className="flex items-center justify-between text-xs">
-        <span className="flex items-center gap-2 text-charcoal-700">
+      <li key={item.name} className="flex items-center justify-between gap-3 text-xs">
+        <span className="flex items-center gap-2 text-charcoal-700 min-w-0">
           <span
             className="w-2.5 h-2.5 rounded-full shrink-0"
             style={{ backgroundColor: typeof colors === 'function' ? colors(item, index) : colors[index % colors.length] }}
           />
-          {item.name}
+          <span className="truncate">{item.name}</span>
         </span>
-        <span className="text-charcoal-500">
+        <span className="text-charcoal-500 shrink-0">
           {item.count} · {item.percentage}%
         </span>
       </li>
@@ -77,10 +77,10 @@ export const CategoryPieChart = ({ data }) => {
 
   return (
     <ChartCard title="Projects by Category" subtitle="Live portfolio mix">
-      <div className="h-56">
+      <div className="admin-chart-pie">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
-            <Pie data={pieSlices(data)} dataKey="count" nameKey="name" innerRadius={48} outerRadius={80} paddingAngle={2}>
+            <Pie data={pieSlices(data)} dataKey="count" nameKey="name" innerRadius="42%" outerRadius="72%" paddingAngle={2}>
               {pieSlices(data).map((entry) => {
                 const colorIndex = data.findIndex((item) => item.name === entry.name);
                 return <Cell key={entry.name} fill={CATEGORY_COLORS[colorIndex % CATEGORY_COLORS.length]} />;
@@ -106,10 +106,10 @@ export const AppointmentPieChart = ({ data }) => {
 
   return (
     <ChartCard title="Appointments by Status" subtitle="Pending · Accepted · Rejected">
-      <div className="h-56">
+      <div className="admin-chart-pie">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
-            <Pie data={data} dataKey="count" nameKey="name" innerRadius={48} outerRadius={80} paddingAngle={2}>
+            <Pie data={data} dataKey="count" nameKey="name" innerRadius="42%" outerRadius="72%" paddingAngle={2}>
               {data.map((entry) => (
                 <Cell key={entry.name} fill={APPOINTMENT_COLORS[entry.name] || '#A4A4A4'} />
               ))}
@@ -134,10 +134,10 @@ export const ProjectStatusPieChart = ({ data }) => {
 
   return (
     <ChartCard title="Projects by Status" subtitle="Completed · Ongoing · Upcoming">
-      <div className="h-56">
+      <div className="admin-chart-pie">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
-            <Pie data={data} dataKey="count" nameKey="name" innerRadius={48} outerRadius={80} paddingAngle={2}>
+            <Pie data={data} dataKey="count" nameKey="name" innerRadius="42%" outerRadius="72%" paddingAngle={2}>
               {data.map((entry) => (
                 <Cell key={entry.name} fill={STATUS_COLORS[entry.name] || '#A4A4A4'} />
               ))}
@@ -159,11 +159,11 @@ export const ProjectsOverTimeChart = ({ data }) => {
       {!hasUploads ? (
         <EmptyChart message="No monthly upload activity yet." />
       ) : (
-        <div className="h-72">
+        <div className="admin-chart-bar">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={data} margin={{ top: 8, right: 8, left: -16, bottom: 8 }}>
+            <BarChart data={data} margin={{ top: 8, right: 4, left: -20, bottom: 8 }}>
               <CartesianGrid stroke="#E3E3E3" vertical={false} />
-              <XAxis dataKey="label" tick={{ fontSize: 10, fill: '#666666' }} interval={0} angle={-35} textAnchor="end" height={56} />
+              <XAxis dataKey="label" tick={{ fontSize: 10, fill: '#666666' }} interval="preserveStartEnd" angle={-35} textAnchor="end" height={56} />
               <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: '#666666' }} />
               <Tooltip
                 cursor={{ fill: 'rgba(166, 117, 36, 0.08)' }}

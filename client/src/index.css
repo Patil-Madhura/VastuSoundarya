@@ -181,6 +181,263 @@ body.intro-lock {
   }
 }
 
+/* Admin dashboard — scoped so the public site is unchanged */
+.admin-app {
+  width: 100%;
+}
+
+.admin-main {
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+.admin-sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(26, 26, 26, 0.55);
+  border: 0;
+  padding: 0;
+}
+
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  width: min(18rem, 86vw);
+  height: 100dvh;
+  background: #1a1a1a;
+  color: #fff;
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+}
+
+.admin-sidebar.is-open {
+  transform: translateX(0);
+}
+
+.admin-nav-link {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  border-radius: 2px;
+  font-size: 0.875rem;
+  color: #c8c8c8;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.admin-nav-link:hover {
+  background: #383838;
+  color: #fff;
+}
+
+.admin-nav-link.is-active {
+  background: #a67524;
+  color: #fff;
+}
+
+.admin-logout-btn {
+  width: 100%;
+  min-height: 44px;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: #f87171;
+  border-radius: 2px;
+}
+
+.admin-logout-btn:hover {
+  background: #383838;
+}
+
+.admin-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3.5rem;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.admin-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+
+.admin-content {
+  width: 100%;
+  min-width: 0;
+  padding: 1rem;
+}
+
+.admin-page-header {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-panel {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 2px;
+  border: 1px solid #f7f7f7;
+  margin-bottom: 1.5rem;
+}
+
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.admin-form-span {
+  grid-column: 1 / -1;
+}
+
+.admin-form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.admin-touch {
+  min-height: 44px;
+}
+
+.admin-file-input {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  font-size: 0.875rem;
+}
+
+.admin-image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+  gap: 0.75rem;
+}
+
+.admin-table-wrap {
+  display: none;
+  background: #fff;
+  border-radius: 2px;
+  border: 1px solid #f7f7f7;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.admin-record-card {
+  background: #fff;
+  border: 1px solid #f7f7f7;
+  border-radius: 2px;
+  padding: 1rem;
+}
+
+.admin-record-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.admin-chart-pie {
+  height: 13.5rem;
+}
+
+.admin-chart-bar {
+  height: 16rem;
+}
+
+.admin-app input,
+.admin-app select,
+.admin-app textarea {
+  max-width: 100%;
+}
+
+.admin-app input[type='file'] {
+  max-width: 100%;
+}
+
+@media (min-width: 640px) {
+  .admin-content {
+    padding: 1.5rem;
+  }
+
+  .admin-page-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .admin-panel {
+    padding: 1.5rem;
+  }
+
+  .admin-form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-chart-bar {
+    height: 18rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .admin-table-wrap {
+    display: block;
+  }
+
+  .admin-card-list {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .admin-sidebar {
+    position: sticky;
+    top: 0;
+    transform: none;
+    width: 16rem;
+    flex-shrink: 0;
+  }
+
+  .admin-content {
+    padding: 2rem;
+  }
+
+  .admin-chart-pie {
+    height: 14rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .admin-sidebar {
+    box-shadow: 8px 0 24px rgba(0, 0, 0, 0.2);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .landing-intro,
   .landing-intro.is-exiting,

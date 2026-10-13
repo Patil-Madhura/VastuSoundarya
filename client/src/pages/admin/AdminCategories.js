@@ -82,13 +82,13 @@ const AdminCategories = () => {
   };
 
   const inputClass =
-    'w-full px-3 py-2 border border-charcoal-200 rounded-sm text-sm focus:outline-none focus:border-gold-600';
+    'w-full min-h-[44px] px-3 py-2 border border-charcoal-200 rounded-sm text-sm focus:outline-none focus:border-gold-600';
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
+      <div className="admin-page-header">
         <h1 className="font-display text-2xl">Categories</h1>
-        <button type="button" onClick={openCreate} className="btn-primary text-xs py-2">
+        <button type="button" onClick={openCreate} className="btn-primary text-xs py-2 admin-touch">
           Add Category
         </button>
       </div>
@@ -96,9 +96,9 @@ const AdminCategories = () => {
       <Alert type={alert.type} message={alert.message} onClose={() => setAlert({ type: '', message: '' })} />
 
       {showForm && (
-        <div className="bg-white p-6 rounded-sm border border-charcoal-100 mb-8">
+        <div className="admin-panel">
           <h2 className="font-medium mb-4">{editingId ? 'Edit Category' : 'New Category'}</h2>
-          <form onSubmit={handleSubmit} className="grid sm:grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="admin-form-grid">
             <input
               placeholder="Category Name"
               value={form.name}
@@ -112,22 +112,23 @@ const AdminCategories = () => {
               onChange={(e) => setForm({ ...form, description: e.target.value })}
               className={inputClass}
             />
-            <label className="flex items-center gap-2 text-sm">
+            <label className="flex items-center gap-2 text-sm min-h-[44px]">
               <input
                 type="checkbox"
+                className="h-4 w-4"
                 checked={form.isActive}
                 onChange={(e) => setForm({ ...form, isActive: e.target.checked })}
               />
               Active
             </label>
-            <div className="sm:col-span-2 flex gap-3">
-              <button type="submit" disabled={submitting} className="btn-primary text-xs py-2 disabled:opacity-50">
+            <div className="admin-form-actions">
+              <button type="submit" disabled={submitting} className="btn-primary text-xs py-2 admin-touch disabled:opacity-50">
                 {submitting ? 'Saving...' : 'Save'}
               </button>
               <button
                 type="button"
                 onClick={() => setShowForm(false)}
-                className="px-4 py-2 text-sm border border-charcoal-200 rounded-sm"
+                className="px-4 py-2 text-sm border border-charcoal-200 rounded-sm admin-touch"
               >
                 Cancel
               </button>
@@ -139,35 +140,53 @@ const AdminCategories = () => {
       {loading ? (
         <LoadingSpinner className="py-12" />
       ) : (
-        <div className="bg-white rounded-sm border border-charcoal-100 overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="bg-charcoal-50">
-              <tr>
-                <th className="text-left px-4 py-3 font-medium">Name</th>
-                <th className="text-left px-4 py-3 font-medium">Slug</th>
-                <th className="text-left px-4 py-3 font-medium">Active</th>
-                <th className="text-right px-4 py-3 font-medium">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-charcoal-100">
-              {categories.map((c) => (
-                <tr key={c._id}>
-                  <td className="px-4 py-3">{c.name}</td>
-                  <td className="px-4 py-3 text-charcoal-500">{c.slug}</td>
-                  <td className="px-4 py-3">{c.isActive ? 'Yes' : 'No'}</td>
-                  <td className="px-4 py-3 text-right space-x-2">
-                    <button type="button" onClick={() => openEdit(c)} className="text-gold-600">
-                      Edit
-                    </button>
-                    <button type="button" onClick={() => handleDelete(c._id)} className="text-red-500">
-                      Delete
-                    </button>
-                  </td>
+        <>
+          <div className="admin-card-list">
+            {categories.map((c) => (
+              <article key={c._id} className="admin-record-card">
+                <h3 className="font-medium break-words">{c.name}</h3>
+                <p className="text-sm text-charcoal-500 mt-1">{c.slug} · {c.isActive ? 'Active' : 'Inactive'}</p>
+                <div className="admin-record-actions">
+                  <button type="button" onClick={() => openEdit(c)} className="text-gold-600 admin-touch px-2">
+                    Edit
+                  </button>
+                  <button type="button" onClick={() => handleDelete(c._id)} className="text-red-500 admin-touch px-2">
+                    Delete
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="admin-table-wrap">
+            <table className="w-full text-sm min-w-[520px]">
+              <thead className="bg-charcoal-50">
+                <tr>
+                  <th className="text-left px-4 py-3 font-medium">Name</th>
+                  <th className="text-left px-4 py-3 font-medium">Slug</th>
+                  <th className="text-left px-4 py-3 font-medium">Active</th>
+                  <th className="text-right px-4 py-3 font-medium">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody className="divide-y divide-charcoal-100">
+                {categories.map((c) => (
+                  <tr key={c._id}>
+                    <td className="px-4 py-3">{c.name}</td>
+                    <td className="px-4 py-3 text-charcoal-500">{c.slug}</td>
+                    <td className="px-4 py-3">{c.isActive ? 'Yes' : 'No'}</td>
+                    <td className="px-4 py-3 text-right space-x-2 whitespace-nowrap">
+                      <button type="button" onClick={() => openEdit(c)} className="text-gold-600">
+                        Edit
+                      </button>
+                      <button type="button" onClick={() => handleDelete(c._id)} className="text-red-500">
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
     </div>
   );

@@ -137,13 +137,13 @@ const AdminProjects = () => {
   };
 
   const inputClass =
-    'w-full px-3 py-2 border border-charcoal-200 rounded-sm text-sm focus:outline-none focus:border-gold-600';
+    'w-full min-h-[44px] px-3 py-2 border border-charcoal-200 rounded-sm text-sm focus:outline-none focus:border-gold-600';
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
+      <div className="admin-page-header">
         <h1 className="font-display text-2xl">Projects</h1>
-        <button type="button" onClick={openCreate} className="btn-primary text-xs py-2" disabled={!categories.length}>
+        <button type="button" onClick={openCreate} className="btn-primary text-xs py-2 admin-touch" disabled={!categories.length}>
           Add Project
         </button>
       </div>
@@ -157,9 +157,9 @@ const AdminProjects = () => {
       <Alert type={alert.type} message={alert.message} onClose={() => setAlert({ type: '', message: '' })} />
 
       {showForm && (
-        <div className="bg-white p-6 rounded-sm border border-charcoal-100 mb-8">
+        <div className="admin-panel">
           <h2 className="font-medium mb-4">{editingId ? 'Edit Project' : 'New Project'}</h2>
-          <form onSubmit={handleSubmit} className="grid sm:grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="admin-form-grid">
             <input
               placeholder="Project Name"
               value={form.name}
@@ -201,9 +201,10 @@ const AdminProjects = () => {
               onChange={(e) => setForm({ ...form, completionInfo: e.target.value })}
               className={inputClass}
             />
-            <label className="flex items-center gap-2 text-sm">
+            <label className="flex items-center gap-2 text-sm min-h-[44px]">
               <input
                 type="checkbox"
+                className="h-4 w-4"
                 checked={form.featured}
                 onChange={(e) => setForm({ ...form, featured: e.target.checked })}
               />
@@ -215,20 +216,20 @@ const AdminProjects = () => {
               onChange={(e) => setForm({ ...form, description: e.target.value })}
               required
               rows={3}
-              className={`${inputClass} sm:col-span-2`}
+              className={`${inputClass} admin-form-span`}
             />
 
             {editingId && existingImages.length > 0 && (
-              <div className="sm:col-span-2">
+              <div className="admin-form-span">
                 <p className="text-sm mb-2">Existing Images</p>
-                <div className="flex flex-wrap gap-3">
+                <div className="admin-image-grid">
                   {existingImages.map((img) => (
-                    <div key={img.publicId} className="relative w-24 h-24">
+                    <div key={img.publicId} className="relative aspect-square">
                       <img src={img.url} alt="" className="w-full h-full object-cover rounded-sm border border-charcoal-100" />
                       <button
                         type="button"
                         onClick={() => handleRemoveImage(img.publicId)}
-                        className="absolute -top-2 -right-2 bg-red-500 text-white w-6 h-6 rounded-full text-xs"
+                        className="absolute -top-2 -right-2 bg-red-500 text-white w-8 h-8 rounded-full text-sm"
                         title="Remove image"
                       >
                         ×
@@ -239,24 +240,24 @@ const AdminProjects = () => {
               </div>
             )}
 
-            <div className="sm:col-span-2">
+            <div className="admin-form-span">
               <label className="block text-sm mb-2">Upload Images</label>
               <input
                 type="file"
                 multiple
                 accept="image/*"
                 onChange={(e) => setImages(Array.from(e.target.files))}
-                className="text-sm"
+                className="admin-file-input"
               />
             </div>
-            <div className="sm:col-span-2 flex gap-3">
-              <button type="submit" disabled={submitting} className="btn-primary text-xs py-2 disabled:opacity-50">
+            <div className="admin-form-actions">
+              <button type="submit" disabled={submitting} className="btn-primary text-xs py-2 admin-touch disabled:opacity-50">
                 {submitting ? 'Saving...' : 'Save'}
               </button>
               <button
                 type="button"
                 onClick={() => setShowForm(false)}
-                className="px-4 py-2 text-sm border border-charcoal-200 rounded-sm"
+                className="px-4 py-2 text-sm border border-charcoal-200 rounded-sm admin-touch"
               >
                 Cancel
               </button>
@@ -268,37 +269,56 @@ const AdminProjects = () => {
       {loading ? (
         <LoadingSpinner className="py-12" />
       ) : (
-        <div className="bg-white rounded-sm border border-charcoal-100 overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="bg-charcoal-50">
-              <tr>
-                <th className="text-left px-4 py-3 font-medium">Name</th>
-                <th className="text-left px-4 py-3 font-medium">Category</th>
-                <th className="text-left px-4 py-3 font-medium">Status</th>
-                <th className="text-left px-4 py-3 font-medium">Featured</th>
-                <th className="text-right px-4 py-3 font-medium">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-charcoal-100">
-              {projects.map((p) => (
-                <tr key={p._id}>
-                  <td className="px-4 py-3">{p.name}</td>
-                  <td className="px-4 py-3">{p.category}</td>
-                  <td className="px-4 py-3">{p.status}</td>
-                  <td className="px-4 py-3">{p.featured ? 'Yes' : 'No'}</td>
-                  <td className="px-4 py-3 text-right space-x-2">
-                    <button type="button" onClick={() => openEdit(p)} className="text-gold-600 hover:text-gold-700">
-                      Edit
-                    </button>
-                    <button type="button" onClick={() => handleDelete(p._id)} className="text-red-500 hover:text-red-600">
-                      Delete
-                    </button>
-                  </td>
+        <>
+          <div className="admin-card-list">
+            {projects.map((p) => (
+              <article key={p._id} className="admin-record-card">
+                <h3 className="font-medium break-words">{p.name}</h3>
+                <p className="text-sm text-charcoal-500 mt-1">{p.category} · {p.status}</p>
+                <p className="text-xs text-charcoal-400 mt-1">{p.featured ? 'Featured' : 'Not featured'}</p>
+                <div className="admin-record-actions">
+                  <button type="button" onClick={() => openEdit(p)} className="text-gold-600 hover:text-gold-700 admin-touch px-2">
+                    Edit
+                  </button>
+                  <button type="button" onClick={() => handleDelete(p._id)} className="text-red-500 hover:text-red-600 admin-touch px-2">
+                    Delete
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="admin-table-wrap">
+            <table className="w-full text-sm min-w-[640px]">
+              <thead className="bg-charcoal-50">
+                <tr>
+                  <th className="text-left px-4 py-3 font-medium">Name</th>
+                  <th className="text-left px-4 py-3 font-medium">Category</th>
+                  <th className="text-left px-4 py-3 font-medium">Status</th>
+                  <th className="text-left px-4 py-3 font-medium">Featured</th>
+                  <th className="text-right px-4 py-3 font-medium">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody className="divide-y divide-charcoal-100">
+                {projects.map((p) => (
+                  <tr key={p._id}>
+                    <td className="px-4 py-3">{p.name}</td>
+                    <td className="px-4 py-3">{p.category}</td>
+                    <td className="px-4 py-3">{p.status}</td>
+                    <td className="px-4 py-3">{p.featured ? 'Yes' : 'No'}</td>
+                    <td className="px-4 py-3 text-right space-x-2 whitespace-nowrap">
+                      <button type="button" onClick={() => openEdit(p)} className="text-gold-600 hover:text-gold-700">
+                        Edit
+                      </button>
+                      <button type="button" onClick={() => handleDelete(p._id)} className="text-red-500 hover:text-red-600">
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
     </div>
   );
