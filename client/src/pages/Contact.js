@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { createEnquiry } from '../services/apiService';
 import Alert from '../components/Alert';
+import { contactInfo } from '../data/contactInfo';
 
 const Contact = () => {
   const [form, setForm] = useState({
@@ -54,16 +55,37 @@ const Contact = () => {
             <h2 className="font-display text-2xl mb-6">Get in Touch</h2>
             <div className="space-y-6 text-charcoal-600">
               <div>
-                <h3 className="font-medium text-charcoal-900 mb-1">Email</h3>
-                <p>info@vastusoundarya.com</p>
+                <h3 className="font-medium text-charcoal-900 mb-1">Contact No.</h3>
+                <p>
+                  <a href={contactInfo.phoneHref} className="hover:text-gold-600">
+                    {contactInfo.phone}
+                  </a>
+                </p>
               </div>
               <div>
-                <h3 className="font-medium text-charcoal-900 mb-1">Phone</h3>
-                <p>+91 98765 43210</p>
+                <h3 className="font-medium text-charcoal-900 mb-1">Email</h3>
+                <p>
+                  <a href={contactInfo.emailHref} className="hover:text-gold-600">
+                    {contactInfo.email}
+                  </a>
+                </p>
               </div>
               <div>
                 <h3 className="font-medium text-charcoal-900 mb-1">Address</h3>
-                <p>123 Design Avenue, Koregaon Park<br />Pune, Maharashtra 411001</p>
+                <p>{contactInfo.address}</p>
+              </div>
+              <div>
+                <h3 className="font-medium text-charcoal-900 mb-1">LinkedIn</h3>
+                <p>
+                  <a
+                    href={contactInfo.linkedinHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-gold-600 break-all"
+                  >
+                    {contactInfo.linkedinLabel}
+                  </a>
+                </p>
               </div>
               <div>
                 <h3 className="font-medium text-charcoal-900 mb-1">Working Hours</h3>

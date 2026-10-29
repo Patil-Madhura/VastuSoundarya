@@ -8,7 +8,7 @@ const sizeClass = {
 const BrandLogo = ({ size = 'nav', className = '', priority = false }) => (
   <img
     src="/logo.png"
-    alt="VastuSoundarya"
+    alt="Vastu Soundarya Architects & Interiors"
     className={`${sizeClass[size] || sizeClass.nav} object-contain object-center ${className}`}
     decoding="async"
     fetchPriority={priority ? 'high' : 'auto'}
