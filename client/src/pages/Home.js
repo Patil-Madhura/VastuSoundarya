@@ -5,6 +5,7 @@ import ProjectCard from '../components/ProjectCard';
 import ServiceCard from '../components/ServiceCard';
 import TestimonialCard from '../components/TestimonialCard';
 import LoadingSpinner from '../components/LoadingSpinner';
+import CountUp from '../components/CountUp';
 
 const testimonials = [
   {
@@ -112,7 +113,9 @@ const Home = () => {
               loading="lazy"
             />
             <div className="absolute -bottom-6 -left-6 bg-gold-600 text-white p-6 hidden md:block">
-              <p className="font-display text-3xl">15+</p>
+              <p className="font-display text-3xl">
+                <CountUp end="15+" />
+              </p>
               <p className="text-sm uppercase tracking-wider">Years Experience</p>
             </div>
           </div>

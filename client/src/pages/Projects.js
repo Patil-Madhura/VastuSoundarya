@@ -85,7 +85,12 @@ export const ProjectDetail = () => {
 
   useEffect(() => {
     getProjectById(id)
-      .then((res) => setProject(res.data))
+      .then((res) => {
+        setProject(res.data);
+        if (res.data?.name) {
+          document.title = `${res.data.name} | VastuSoundarya Architects & Interiors`;
+        }
+      })
       .catch(console.error)
       .finally(() => setLoading(false));
   }, [id]);

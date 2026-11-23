@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getDashboardStats } from '../../services/apiService';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import CountUp from '../../components/CountUp';
 import {
   AppointmentPieChart,
   CategoryPieChart,
@@ -12,7 +13,9 @@ import {
 const StatCard = ({ label, value, accent }) => (
   <div className="bg-white p-4 sm:p-5 rounded-sm border border-charcoal-100 hover:shadow-md transition-shadow duration-300 min-w-0">
     <p className="text-charcoal-500 text-[11px] uppercase tracking-[0.16em] leading-snug">{label}</p>
-    <p className={`font-display text-2xl sm:text-3xl mt-2 ${accent}`}>{value ?? 0}</p>
+    <p className={`font-display text-2xl sm:text-3xl mt-2 ${accent}`}>
+      <CountUp end={value ?? 0} />
+    </p>
   </div>
 );
 

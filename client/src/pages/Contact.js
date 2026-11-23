@@ -42,10 +42,18 @@ const Contact = () => {
 
   return (
     <>
-      <section className="relative py-32 bg-charcoal-900">
-        <div className="relative max-w-7xl mx-auto px-4 text-center">
+      <section className="relative py-32 bg-charcoal-900 overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80"
+            alt="Modern Architectural Workspace"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-charcoal-900/85 via-charcoal-900/75 to-charcoal-900/90" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
           <h1 className="font-display text-4xl md:text-5xl text-white mb-4">Contact Us</h1>
-          <p className="text-charcoal-300 text-lg">We&apos;d love to hear from you</p>
+          <p className="text-charcoal-300 text-lg max-w-2xl mx-auto">We&apos;d love to hear from you</p>
         </div>
       </section>
 
@@ -84,6 +92,19 @@ const Contact = () => {
                     className="hover:text-gold-600 break-all"
                   >
                     {contactInfo.linkedinLabel}
+                  </a>
+                </p>
+              </div>
+              <div>
+                <h3 className="font-medium text-charcoal-900 mb-1">Instagram</h3>
+                <p>
+                  <a
+                    href={contactInfo.instagramHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-gold-600 break-all"
+                  >
+                    {contactInfo.instagramLabel}
                   </a>
                 </p>
               </div>

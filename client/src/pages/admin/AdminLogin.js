@@ -12,6 +12,10 @@ const AdminLogin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    document.title = 'Admin Login | VastuSoundarya Architects & Interiors';
+  }, []);
+
+  useEffect(() => {
     if (isAuthenticated) {
       navigate('/admin', { replace: true });
     }

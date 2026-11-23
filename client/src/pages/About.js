@@ -1,3 +1,5 @@
+import CountUp from '../components/CountUp';
+
 const About = () => {
   return (
     <>
@@ -49,7 +51,9 @@ const About = () => {
               { number: '150+', label: 'Happy Clients' },
             ].map((stat) => (
               <div key={stat.label} className="p-8 bg-white">
-                <p className="font-display text-4xl text-gold-600 mb-2">{stat.number}</p>
+                <p className="font-display text-4xl text-gold-600 mb-2">
+                  <CountUp end={stat.number} />
+                </p>
                 <p className="text-charcoal-600 uppercase tracking-wider text-sm">{stat.label}</p>
               </div>
             ))}

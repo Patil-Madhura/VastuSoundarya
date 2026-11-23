@@ -10,6 +10,10 @@ const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
+    document.title = 'Admin Panel | VastuSoundarya Architects & Interiors';
+  }, []);
+
+  useEffect(() => {
     setSidebarOpen(false);
   }, [location.pathname]);
 

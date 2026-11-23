@@ -63,10 +63,18 @@ const Appointment = () => {
 
   return (
     <>
-      <section className="relative py-32 bg-charcoal-900">
-        <div className="relative max-w-7xl mx-auto px-4 text-center">
+      <section className="relative py-32 bg-charcoal-900 overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80"
+            alt="Modern Residential Architecture"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-charcoal-900/85 via-charcoal-900/75 to-charcoal-900/90" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
           <h1 className="font-display text-4xl md:text-5xl text-white mb-4">Book an Appointment</h1>
-          <p className="text-charcoal-300 text-lg">
+          <p className="text-charcoal-300 text-lg max-w-2xl mx-auto">
             Schedule a consultation with our design experts
           </p>
         </div>
